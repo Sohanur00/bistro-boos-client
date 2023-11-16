@@ -3,6 +3,9 @@ import { Helmet } from 'react-helmet-async';
 import Cover from '../shared/Cover';
 import menuImage from '../../../assets/menu/banner3.jpg'
 import dessertImg from '../../../assets/menu/dessert-bg.jpeg'
+import pizzaImg from '../../../assets/menu/pizza-bg.jpg'
+import saladImg from '../../../assets/menu/salad-bg.jpg'
+import soupdImg from '../../../assets/menu/soup-bg.jpg'
 
 import useMenu from '../../Hooks/useMenu';
 import SectionTitle from '../../SectionTitle/SectionTitle';
@@ -42,6 +45,37 @@ const offered = menu.filter(item => item.category === 'offered')
            title="Dessert"
            Img={dessertImg}
            ></MenuCategory>
+
+           <MenuCategory
+           
+           items={pizza}
+           title={"Pizza"}
+           Img={pizzaImg}
+           >
+
+
+           </MenuCategory>
+
+           <MenuCategory
+           
+           items={salad}
+           title={"Salad"}
+           Img={saladImg}
+           >
+
+
+           </MenuCategory>
+
+           <MenuCategory
+           
+           items={soup}
+           title={"Soup"}
+           Img={soupdImg}
+           >
+
+
+           </MenuCategory>
+          
         </div>
     )
 };
