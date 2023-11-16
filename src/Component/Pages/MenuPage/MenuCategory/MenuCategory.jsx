@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import Cover from "../../shared/Cover";
 import MenuItem from "../../shared/MenuItem";
 
@@ -17,9 +18,13 @@ const MenuCategory = ({items,title,Img}) => {
                      
                   
                 </div>
+
+                <Link to={`/order/${title}`}>
                 <div className="text-center justify-center mt-20">
                         <button className="btn btn-outline font-bold btn-success text-green-700">ORDER YOUR FAVOURITE FOOD</button>
                     </div>
+                </Link>
+               
         </div>
     );
 };
