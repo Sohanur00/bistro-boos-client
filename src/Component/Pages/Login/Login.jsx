@@ -1,12 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 import loginImg from '../../../assets/others/authentication.png'
 import loginimg2 from '../../../assets/others/authentication1.png'
+import { AuthContext } from '../../../Provider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const captchaRef = useRef(null)
     const [disabled, setDisabled] = useState(true)
+
+
+    const { signIn } = useContext(AuthContext)
+
+
     useEffect(() => {
 
         loadCaptchaEnginge(6);
@@ -21,6 +28,13 @@ const Login = () => {
         const password = from.password.value;
 
         console.log(email, password)
+        signIn(email, password)
+            .then(result => {
+
+                const user = result.user;
+                console.log(user)
+            })
+
 
     }
 
@@ -40,14 +54,14 @@ const Login = () => {
 
 
     return (
-        <div className="hero min-h-screen bg-base-200" style={{backgroundImage: `url(${loginImg})`}}>
+        <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${loginImg})` }}>
             <div className="hero-content flex-col md:flex-row">
                 <div className="text-center md:w-1/2 lg:text-left">
-                    
+
                     <img className='' src={loginimg2} alt="" />
                 </div>
                 <div className="card lg:w-1/3 w-full max-w-sm shadow-2xl bg-base-100">
-                <h1 className="text-5xl font-bold text-center p-4">Login now!</h1>
+                    <h1 className="text-5xl font-bold text-center p-4">Login now!</h1>
                     <form onSubmit={handleLogin} className="card-body">
                         <div className="form-control">
                             <label className="label">
@@ -73,7 +87,7 @@ const Login = () => {
                         <div className="form-control mt-6">
                             <input disabled={disabled} className="btn btn-success btn-outline bg-red-50" type="submit" value='Login' />
                         </div>
-                        <p className="text-center">New here? Create a New Account<br />Or sign in with </p>
+                        <p className="text-center">New here?<Link to='/signup' className='text-blue-500 font-bold'>Create a New Account</Link> <br />Or sign in with </p>
                     </form>
                 </div>
             </div>

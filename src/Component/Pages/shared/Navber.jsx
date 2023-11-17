@@ -37,7 +37,7 @@ const Navber = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn text-white btn-outline">Button</a>
+                   <Link> <a className="btn text-white btn-outline">Signup</a></Link>
                 </div>
             </div>
         </div>
