@@ -1,18 +1,24 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useRef, useState } from 'react';
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 import loginImg from '../../../assets/others/authentication.png'
 import loginimg2 from '../../../assets/others/authentication1.png'
 import { AuthContext } from '../../../Provider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const captchaRef = useRef(null)
     const [disabled, setDisabled] = useState(true)
-
-
     const { signIn } = useContext(AuthContext)
 
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/' ;
 
     useEffect(() => {
 
@@ -32,8 +38,20 @@ const Login = () => {
             .then(result => {
 
                 const user = result.user;
-                console.log(user)
-            })
+                console.log(user);
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Login successfully",
+                    showConfirmButton: false,
+                    timer: 1500
+                   
+                  });
+                  navigate(from,{replace :true });
+                
+                })
+               
 
 
     }
@@ -54,7 +72,12 @@ const Login = () => {
 
 
     return (
-        <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${loginImg})` }}>
+        <div>
+            <Helmet>
+                <title>Bistro | Login </title>
+                <link rel="canonical" href="https://www.tacobell.com/" />
+            </Helmet>
+            <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${loginImg})` }}>
             <div className="hero-content flex-col md:flex-row">
                 <div className="text-center md:w-1/2 lg:text-left">
 
@@ -92,6 +115,9 @@ const Login = () => {
                 </div>
             </div>
         </div>
+
+        </div>
+       
     );
 };
 

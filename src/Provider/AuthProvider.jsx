@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
 
@@ -22,14 +22,22 @@ const AuthProvider = ({ children }) => {
 
     const signIn = (email, password) => {
         setLoading(true)
-        return signInWithEmailAndPassword(email, password)
+        return signInWithEmailAndPassword(auth, email, password)
 
     }
 
 
     const logOut = () => {
         setLoading(true)
-        return signOut (auth)
+        return signOut(auth)
+
+    }
+
+
+    const updateUserProfile = (name,url) => {
+    return    updateProfile(auth.currentUser, {
+            displayName: name, photoURL: url
+        })
 
     }
 
@@ -54,7 +62,8 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signIn,
-        logOut
+        logOut,
+        updateUserProfile
 
 
 
